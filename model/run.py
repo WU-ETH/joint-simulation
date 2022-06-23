@@ -1,5 +1,5 @@
 import pandas as pd
-from .sys_params import initial_values
+# from .sys_params import initial_values
 from cadCAD.engine import ExecutionMode, ExecutionContext, Executor
 from .config import exp
 
@@ -30,4 +30,8 @@ def postprocessing(df):
     df: simulation dataframe
     '''
 
-    ## TODO TBA
+    split_df = pd.DataFrame(df['USDCs'].tolist(), columns=['Client_1', 'Client_2', 'Client_3', 'Client_4'])
+    df = pd.concat([df, split_df], axis=1)
+    df = df.drop('USDCs', axis=1)
+
+    return df
